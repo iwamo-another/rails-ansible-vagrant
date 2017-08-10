@@ -1,0 +1,11 @@
+---
+- hosts: all
+  sudo: yes
+  user: vagrant
+
+  roles:
+    - common
+    - postgresql
+    - ruby
+    - nginx
+

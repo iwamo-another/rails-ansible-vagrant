@@ -1,0 +1,45 @@
+---
+- name: install git
+  yum: name=git state=installed
+
+- name: install rbenv
+  git: repo=https://github.com/sstephenson/rbenv.git dest={{ repos_dir }} version={{ branch }} accept_hostkey=yes
+
+- name: setup rbenv
+  copy: src=rbenv.sh dest=/etc/profile.d
+
+- name: install ruby-build
+  git: repo=https://github.com/sstephenson/ruby-build.git dest={{ repos_dir }}/plugins/ruby-build version={{ branch }} accept_hostkey=yes
+
+- name: install ruby dependencies
+  yum: name={{ item }} state=latest
+  with_items:
+    - gcc
+    - gcc-c++
+    - openssl-devel
+    - libyaml-devel
+    - readline-devel
+    - zlib-devel
+    - libffi-devel
+    - libxml2-devel
+    - libxslt-devel
+    - nodejs
+
+- name: install ruby
+  shell: /bin/bash -lc "rbenv install {{ ruby_version }} && rbenv rehash && rbenv global {{ ruby_version }}"
+
+- name: install rails
+  shell: /bin/bash -lc "gem install rails"
+
+- name: install webpack-dev-server
+  shell: /bin/bash -lc "npm install -g yarn"
+
+- name: gem bundler install
+  shell: /bin/bash -lc "gem install bundler"
+
+- name: gem foreman install
+  shell: /bin/bash -lc "gem install foreman"
+
+- name: setting Procfile
+  copy: src=Procfile dest={{ rails_root }} owner=vagrant group=vagrant mode=0644
+

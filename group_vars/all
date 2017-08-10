@@ -1,0 +1,23 @@
+# rbenv variable
+work_dir: /usr/local/share
+repos_dir: "{{ work_dir }}/rbenv"
+branch: master
+
+# postgresql user
+dbuser: "postgres"
+dbpass: "postgres"
+
+# ruby version
+ruby_version: 2.4.1
+
+# app root
+rails_root: /www/marr_manage
+rails_project_name: sample-rails-app
+
+# unicorn
+unicorn_sock: /var/run/unicorn.sock
+unicorn_pid: /var/run/unicorn.pid
+
+# locale, timezone
+base_locale: LANG=ja_JP.UTF-8
+base_timezone: Asia/Tokyo

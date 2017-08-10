@@ -1,0 +1,20 @@
+- name: yum update
+  yum: name=* state=latest
+ 
+- name: set locale
+  command: localectl set-locale {{ base_locale }}
+ 
+- name: set timezone
+  command: timedatectl set-timezone {{ base_timezone }}
+
+- name: install ntp
+  yum: name=ntp state=latest
+
+- name: set time
+  command: ntpdate clock.nc.fukuoka-u.ac.jp
+
+- name: set time
+  command: systemctl stop firewalld
+  become: yes
+  become_user: root
+
